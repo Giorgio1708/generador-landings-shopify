@@ -1,0 +1,25 @@
+# Credenciales - NUNCA subir esto
+.env
+
+# Imágenes generadas y de prueba
+output/
+*.jpg
+*.jpeg
+*.png
+*.webp
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Editor
+.vscode/
+.idea/
+*.swp
