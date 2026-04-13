@@ -1,21 +1,23 @@
-from generators.templates import TEMPLATES
+from generators.prompt_generator import generate_specialized_prompt
 from models.product_input import ProductInput
 
 
-def build_prompt(fase: int, product: ProductInput, feedback: str = "") -> str:
-    template = TEMPLATES[fase]
+def build_prompt(
+    fase: int,
+    product: ProductInput,
+    feedback: str = "",
+) -> str:
+    """
+    Genera un prompt de imagen ultra-específico para la fase indicada.
 
-    prompt = template.replace("{COLOR_HEX}", product.color_hex)
-    prompt = prompt.replace("{PRECIO_NORMAL}", product.precio_normal)
-    prompt = prompt.replace("{PRECIO_OFERTA}", product.precio_oferta)
-    prompt = prompt.replace("{FUENTE}", product.fuente)
-    prompt = prompt.replace("{INFO_PRODUCTO}", product.info_producto)
-    prompt = prompt.replace("{ANGULO_VENTA}", product.angulo_venta)
-
-    if feedback:
-        prompt = (
-            f"FEEDBACK DE REVISIÓN (aplicar en esta regeneración): {feedback}\n\n"
-            f"{prompt}"
-        )
-
-    return prompt
+    Flujo de dos pasos:
+      1. gemini-2.5-flash analiza el producto real (imagen + info) y construye
+         un prompt cinematográfico detallado siguiendo la plantilla de la fase.
+      2. Ese prompt es el que se pasa al modelo de generación de imágenes.
+    """
+    return generate_specialized_prompt(
+        fase=fase,
+        product=product,
+        product_image_path=product.imagen_path,
+        feedback=feedback,
+    )

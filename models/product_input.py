@@ -13,7 +13,7 @@ class ProductInput:
     precio_oferta: str      # Precio de oferta
     angulo_venta: str       # Ángulo de venta (texto libre)
     fuente: str = "Poppins"
-    fases: List[int] = field(default_factory=lambda: list(range(1, 9)))
+    fases: List[int] = field(default_factory=lambda: list(range(1, 7)))
 
     @property
     def info_producto(self) -> str:

@@ -58,7 +58,12 @@ def create_shopify_product(product: ProductInput, generated_images: dict) -> str
     theme_id = get_active_theme_id(client)
     ensure_landing_section(client, theme_id)
     template_suffix = create_product_template(
-        client, theme_id, product.slug, image_urls
+        client,
+        theme_id,
+        product.slug,
+        image_urls,
+        info_producto=product.info_producto,
+        color_hex=product.color_hex,
     )
     assign_template_to_product(client, product_id, template_suffix)
 

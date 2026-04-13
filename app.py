@@ -171,7 +171,7 @@ elif st.session_state.step == "phase1":
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("✅ Aprobar — generar las 8 fases", type="primary"):
+        if st.button("✅ Aprobar — generar las 6 secciones", type="primary"):
             st.session_state.step = "generating"
             st.rerun()
 
@@ -223,11 +223,11 @@ elif st.session_state.step == "generating":
 
     st.title("⚙️ Generando landing...")
 
-    progress = st.progress(1 / 8, text="Fase 1 lista")
+    progress = st.progress(1 / 6, text="Fase 1 lista")
     gen = ImageGenerator()
 
-    for fase_num in range(2, 9):
-        progress.progress(fase_num / 8, text=f"Generando fase {fase_num} de 8...")
+    for fase_num in range(2, 7):
+        progress.progress(fase_num / 6, text=f"Generando sección {fase_num} de 6...")
         output_path = str(output_dir / f"fase_{fase_num}.png")
         try:
             prompt = build_prompt(fase_num, product)
@@ -268,9 +268,12 @@ elif st.session_state.step == "done":
 
     # Mostrar todas las imágenes
     fase_nombres = {
-        1: "Portada", 2: "Infografía", 3: "Producto Héroe",
-        4: "Testimonios", 5: "FAQ", 6: "Comparativa",
-        7: "Resultados", 8: "Garantías",
+        1: "Portada",
+        2: "Infografía de Beneficios",
+        3: "Características Técnicas",
+        4: "Garantías",
+        5: "Preguntas Frecuentes",
+        6: "Testimonios",
     }
 
     for fase_num, path in sorted(st.session_state.all_images.items()):

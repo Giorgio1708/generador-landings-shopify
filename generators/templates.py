@@ -1,231 +1,238 @@
-# Plantillas de generación de imágenes — basadas en el prompt maestro original.
-# La imagen del producto se envía como referencia multimodal a Gemini (imagen adjunta).
-# Variables disponibles: {COLOR_HEX}, {PRECIO_NORMAL}, {PRECIO_OFERTA}, {FUENTE}, {INFO_PRODUCTO}, {ANGULO_VENTA}
+# Plantillas de estructura — instrucciones para que gemini-2.5-flash genere
+# el prompt especializado de imagen por producto.
+# Variables: {COLOR_HEX}, {PRECIO_NORMAL}, {PRECIO_OFERTA}, {FUENTE}, {INFO_PRODUCTO}, {ANGULO_VENTA}
 
 FASE_NOMBRES = {
     1: "Portada",
-    2: "Beneficios",
-    3: "Producto Héroe",
-    4: "Testimonios",
-    5: "FAQ",
-    6: "Comparativa",
-    7: "Resultados",
-    8: "Garantías",
+    2: "Infografía de Beneficios",
+    3: "Características Técnicas",
+    4: "Garantías",
+    5: "Preguntas Frecuentes",
+    6: "Testimonios",
 }
 
 TEMPLATES = {
 
-1: """Genera una imagen realista de alta resolución en formato vertical (ratio 9:16) que simule un anuncio publicitario de e-commerce perfecto. La imagen debe tener exactamente esta estructura de pantalla dividida:
+# ─────────────────────────────────────────────────────────────────────────────
+1: """Genera una imagen publicitaria de altísima calidad, formato vertical 9:16,
+que simule un anuncio de e-commerce de conversión máxima.
 
-SECCIÓN SUPERIOR (Comparativo ANTES / DESPUÉS - 50% del canvas):
-Divide esta sección en dos mitades iguales con una línea fina blanca vertical en el centro y una flecha → en el centro que indique la transformación.
+CONCEPTO: La imagen es 100% visual y fluida. NO hay bloques separados ni
+divisiones horizontales visibles. Todo se integra en una sola composición
+cinematográfica que fluye de arriba hacia abajo naturalmente.
 
-MITAD IZQUIERDA — "ANTES":
-Etiqueta "ANTES" en rojo en la esquina superior izquierda.
-Fotografía realista y cinematográfica de una persona sufriendo intensamente el problema principal relacionado con {ANGULO_VENTA}. Expresión de dolor genuino, frustración o agotamiento visible. Postura corporal que refleja el malestar. Tonos fríos, desaturados, iluminación baja y sombría. Sin producto visible.
+COMPOSICIÓN GENERAL:
+La imagen entera es una escena fotográfica de alta producción con elementos
+de UI sobrepuestos de forma orgánica, como si fuera un story de Instagram
+con diseño premium. Nada parece pegado. Todo respira.
 
-MITAD DERECHA — "DESPUÉS":
-Etiqueta "DESPUÉS" en el color {COLOR_HEX} en la esquina superior derecha.
-La misma persona completamente transformada — expresión de alivio genuino, felicidad real, energía visible. Sostiene el producto (imagen adjunta) con orgullo o lo señala sonriendo. Iluminación cálida, colores vibrantes y saturados, bokeh profundo. Contraste visual dramático respecto al lado izquierdo.
+ZONA SUPERIOR — VISUAL DE TRANSFORMACIÓN:
+Una composición de pantalla dividida verticalmente de forma dramática por
+una línea de luz (no una línea gráfica simple, sino un destello de luz que
+separa ambos lados de forma cinematográfica).
 
-Elemento UI superpuesto:
-Esquina superior derecha: Etiqueta redondeada del color {COLOR_HEX} con texto blanco: "PAGA SOLO CUANDO RECIBES".
+LADO IZQUIERDO — ANTES:
+Etiqueta "ANTES" flotante en rojo con tipografía {FUENTE}.
+Persona real sufriendo intensamente el problema principal de {ANGULO_VENTA}.
+Expresión genuina de dolor/agotamiento/frustración. Postura corporal que
+lo refleja. Paleta fría y desaturada. Iluminación tenue y dramática.
 
-SECCIÓN INFERIOR (Ventas y Texto - 50% del canvas):
-Fondo: Color carbón oscuro sólido (casi negro), transición suave desde la foto superior, difuminado integrándose con la foto.
-Barra de Prueba Social: Justo debajo de la foto, inserta: 5 estrellas blancas, icono de check, texto "Verificado", texto debajo "MÁS DE 3.500 CLIENTES FELICES".
-Titular Principal (Headline): Un titular impactante basado en {INFO_PRODUCTO} y el ángulo de venta: {ANGULO_VENTA}. Debe ser en fuente {FUENTE} gruesa, mayúsculas, color BLANCO. Una palabra clave del titular debe estar resaltada en el color {COLOR_HEX}.
-Cuerpo de Texto: Debajo del titular, un párrafo corto en texto blanco y legible explicando los beneficios principales basados en {INFO_PRODUCTO}.
-Estructura de Precios:
-Precio de Oferta: {PRECIO_OFERTA} (Grande, blanco, negrita).
-Precio Original: {PRECIO_NORMAL} (Tachado, color gris).
-Píldora de Ahorro: Etiqueta del color {COLOR_HEX} redondeada con texto blanco indicando el ahorro calculado entre ambos precios.
-Pie de página: Iconos pequeños blancos y texto en la parte inferior: Icono camión "Envío Gratis" | Icono reloj "Entrega entre: 3 a 6 días".""",
+LADO DERECHO — DESPUÉS:
+Etiqueta "DESPUÉS" flotante en {COLOR_HEX} con tipografía {FUENTE}.
+La misma persona completamente transformada — vitalidad, alivio, felicidad
+real. Sostiene el producto (imagen adjunta) con naturalidad y orgullo.
+Bokeh profundo, iluminación cálida y dorada, colores vibrantes y saturados.
 
-2: """Crea una imagen tipo infografía (ratio 9:16) con diseño limpio y equilibrado, usando FONDO BLANCO y la paleta de colores basada en {COLOR_HEX} y la fuente {FUENTE}. Asegura que todas las áreas de texto sean fáciles de leer.
+ELEMENTOS UI FLOTANTES (integrados sobre la foto, no debajo):
+— Esquina superior derecha: píldora redondeada {COLOR_HEX} "PAGA SOLO CUANDO RECIBES"
+— Centro inferior de la foto (sobre la imagen, no debajo): barra de prueba
+  social con fondo negro semitransparente, bordes redondeados:
+  ★★★★★ · ✓ Verificado · "MÁS DE 3.500 CLIENTES FELICES"
 
-Todos los iconos serán lineales e irán dentro de un cuadro con bordes redondeados de un color mucho más claro (pastel/crema) que {COLOR_HEX} para contraste, o usando {COLOR_HEX} si contrasta bien.
+ZONA INFERIOR — DEGRADADO OSCURO CON TEXTO (fluye desde la foto):
+La imagen base continúa hacia abajo pero se oscurece progresivamente
+con un degradado negro suave desde el centro hacia abajo.
+Sobre ese degradado oscuro, de arriba a abajo:
 
-PRODUCTO DE REFERENCIA: {INFO_PRODUCTO}
+TITULAR: fuente {FUENTE} bold, mayúsculas, blanco, máximo 2 líneas.
+Construido desde {INFO_PRODUCTO} y {ANGULO_VENTA}. Una palabra clave
+resaltada con subrayado o color {COLOR_HEX}.
 
-Encabezado Superior:
-Área de título principal y subtítulo, alineados a la izquierda.
-Título Principal: extraer beneficio clave corto de {INFO_PRODUCTO}
-Subtítulo: complementar título usando información de {INFO_PRODUCTO}
-A la derecha, un sello circular dorado que en su interior incluya un beneficio clave en porcentaje (ej. "80%+ Ingrediente/Efecto relevante").
-Junto al sello, la ilustración realista del frasco y etiqueta basada en la imagen adjunta del producto.
-Atrás del frasco, una forma orgánica suave (tipo mancha) del mismo color pastel/crema de los cuadros de iconos, resaltando el producto con estética natural/wellness.
+PRECIO en la misma zona, alineado a la izquierda:
+{PRECIO_OFERTA} grande y blanco en negrita.
+{PRECIO_NORMAL} tachado en gris junto al lado.
+Píldora de ahorro en {COLOR_HEX} con el ahorro calculado.
 
-Sección "Beneficios Clave":
-Título de la sección: Beneficios Clave.
-Seis bloques de iconos lineales simples relacionados con el producto o su efecto según {INFO_PRODUCTO}, organizados en dos filas de tres.
-Debajo de cada icono, un área de texto breve con cada beneficio.
-Al finalizar esta sección, una línea fina separadora del mismo color pastel.
+PIE INTEGRADO al fondo, pequeño, centrado:
+🚚 Envío Gratis  |  🕐 Entrega 3 a 6 días
 
-Sección "¿Por Qué Elegir?":
-Título de la sección: ¿Por qué elegir nuestro producto?
-Tres bloques de iconos lineales simples.
-Debajo de cada icono, un texto relacionado con una razón de compra relevante para {INFO_PRODUCTO}.
-Al finalizar esta sección, una línea fina separadora del mismo color pastel.
+REGLA ABSOLUTA: No debe verse como "sección arriba + sección abajo".
+Debe verse como UNA sola imagen fotográfica de moda/lifestyle con
+elementos informativos integrados de forma orgánica y premium.""",
 
-Sección "Modo de Uso":
-Título de la sección: Modo de uso.
-Un icono lineal relacionado con el modo de utilización basado en las instrucciones de {INFO_PRODUCTO}.
-A la derecha, dos áreas de texto con instrucciones breves (Paso 1 y Paso 2) extraídas de {INFO_PRODUCTO}.""",
+# ─────────────────────────────────────────────────────────────────────────────
+2: """Genera una imagen publicitaria vertical 9:16, estilo infografía de producto premium.
+Fondo blanco limpio o blanco hueso. Paleta {COLOR_HEX}. Fuente {FUENTE}.
 
-3: """Genera una imagen publicitaria vertical (ratio 9:16) manteniendo estrictamente la estética y paleta de colores {COLOR_HEX}, replicando la siguiente estructura geométrica de "Producto Héroe":
+PRODUCTO: {INFO_PRODUCTO}
 
-PRODUCTO DE REFERENCIA: {INFO_PRODUCTO}
+CONCEPTO: El producto es el protagonista absoluto al centro. 4 beneficios
+clave lo rodean como satélites. Mínimo texto. Máximo impacto visual.
 
-1. FONDO Y AMBIENTE:
-Usa un fondo de estudio limpio y premium. El color del fondo debe ser coherente con la marca: puede ser un sólido mate de un tono derivado de {COLOR_HEX} (si es oscuro) o un color neutro/crema (si la marca es clara) que permita leer los textos perfectamente. La iluminación es suave y difusa (Softbox lighting).
+ESTRUCTURA:
 
-2. ESTRUCTURA CENTRAL (HÉROE):
-Coloca el frasco de la imagen adjunta en el centro exacto de la mitad inferior.
-Efecto de Suspensión (Gravedad Cero): Justo encima de la tapa del frasco, flotando en el aire, coloca 2 unidades del producto (cápsulas/gomitas/gotas/tabletas según {INFO_PRODUCTO}) con iluminación brillante y nítida. Deben verse tridimensionales y realistas.
+ENCABEZADO (parte superior, ~15% del canvas):
+Título corto y poderoso extraído del beneficio principal de {INFO_PRODUCTO}.
+Fuente {FUENTE} bold. Color oscuro que contraste con el fondo blanco.
+Subtítulo en una línea, fuente delgada, color gris.
 
-3. TEXTOS SUPERIORES (ENCABEZADO):
-En la parte superior, centrado:
-Titular: "Tu fórmula diaria de [Beneficio Principal extraído de {INFO_PRODUCTO}]". Fuente {FUENTE} GRUESA (Bold), tamaño grande. Color que contraste fuertemente con el fondo.
-Subtítulo: Justo debajo, centrado: los ingredientes clave o potencia extraídos de {INFO_PRODUCTO}. Fuente más delgada, tamaño mediano.
+ZONA CENTRAL — PRODUCTO 3D HERO (~50% del canvas):
+El producto (imagen adjunta) renderizado en 3D o con fotografía de estudio
+de altísima calidad, flotando en el centro ligeramente elevado, con sombra
+suave debajo y un halo de luz tenue en {COLOR_HEX} alrededor.
+El producto debe verse tridimensional, con profundidad y detalles del empaque
+perfectamente visibles: etiqueta, colores, textura, forma exacta.
+Escala grande — ocupa el 40-50% del ancho del canvas.
 
-4. ESPECIFICACIONES TÉCNICAS (ESTILO CLÍNICO):
-A la derecha del frasco, crea un elemento gráfico de UI:
-Dibuja una línea fina y elegante que salga desde el costado del frasco hacia la derecha.
-Al final de la línea, coloca un bloque de texto flotante alineado a la izquierda con:
-"Dosis recomendada extraída de {INFO_PRODUCTO}"
-"Duración del frasco/Total de porciones"
-Pon el texto sobre una sutil tarjeta traslúcida, manteniendo el estilo minimalista.
+LOS 4 BENEFICIOS RODEANDO EL PRODUCTO:
+Posicionados en las 4 esquinas alrededor del producto (arriba izquierda,
+arriba derecha, abajo izquierda, abajo derecha).
+Cada beneficio conectado al producto con una línea fina y elegante de {COLOR_HEX}.
+Cada beneficio: SOLO UNA PALABRA CLAVE en mayúsculas bold {COLOR_HEX}
++ una línea descriptiva breve en gris (máximo 5 palabras).
+Los 4 beneficios se extraen directamente de {INFO_PRODUCTO}.
+NO usar cajas ni cuadros — las palabras flotan sobre el fondo blanco.
 
-5. PIE DE PÁGINA:
-En el borde inferior, texto pequeño y discreto centrado: "Basado en ciencia · Calidad Premium".
+PIE (~15% del canvas):
+Sello circular con "Fórmula Premium · Alta Biodisponibilidad" a un lado.
+Barra de separación fina en {COLOR_HEX}.
+Texto pequeño: nombre del producto de {INFO_PRODUCTO}.
 
-IMPORTANTE: Si el fondo es oscuro, usa textos blancos. Si el fondo es claro, usa textos oscuros. El color de acento para líneas o detalles debe ser {COLOR_HEX}.""",
+REGLA ABSOLUTA: Sin grillas de iconos. Sin bloques de texto. Solo el
+producto 3D al centro y 4 palabras clave orbitando a su alrededor.""",
 
-4: """Genera una imagen vertical (ratio 9:16) para una sección de testimonios, manteniendo estrictamente la estética oscura y la paleta de colores {COLOR_HEX}.
+# ─────────────────────────────────────────────────────────────────────────────
+3: """Genera una imagen publicitaria vertical 9:16 estilo "Producto Héroe Técnico".
+Fondo de estudio premium derivado de {COLOR_HEX} o neutro/crema. Fuente {FUENTE}.
 
-PRODUCTO DE REFERENCIA: {INFO_PRODUCTO}
+PRODUCTO: {INFO_PRODUCTO}
+
+1. FONDO Y LUZ:
+Fondo sólido premium (oscuro derivado de {COLOR_HEX} o crema/neutro si la marca es clara).
+Iluminación tipo softbox: suave, difusa, envuelve el producto con elegancia.
+
+2. PRODUCTO CENTRAL:
+Producto (imagen adjunta) centrado en la mitad inferior, grande y nítido.
+Sobre la tapa del producto, flotando en gravedad cero: 2 unidades del producto
+(cápsulas/gomitas/gotas/tabletas según {INFO_PRODUCTO}), tridimensionales,
+con iluminación brillante. Se ven reales y perfectos.
+
+3. ENCABEZADO SUPERIOR:
+Titular centrado, fuente {FUENTE} GRUESA bold, alto contraste con el fondo:
+"Tu fórmula diaria de [Beneficio Principal de {INFO_PRODUCTO}]"
+Subtítulo debajo, fuente delgada: ingredientes clave o potencia de {INFO_PRODUCTO}.
+
+4. ESPECIFICACIONES TÉCNICAS (lado derecho del producto):
+Línea fina y elegante saliendo del costado del producto hacia la derecha.
+Al final de la línea, bloque sobre tarjeta traslúcida minimalista:
+— Dosis recomendada de {INFO_PRODUCTO}
+— Duración del frasco / total de porciones
+
+5. PIE: "Basado en ciencia · Calidad Premium" — pequeño, centrado, discreto.
+
+REGLA: Si fondo oscuro → textos blancos. Si fondo claro → textos oscuros.
+Acento y líneas en {COLOR_HEX}.""",
+
+# ─────────────────────────────────────────────────────────────────────────────
+4: """Genera una imagen vertical 9:16 para sección de garantías y confianza.
+Estética dark mode premium. Paleta {COLOR_HEX}. Fuente {FUENTE}.
+
+PRODUCTO: {INFO_PRODUCTO}
+
+1. TÍTULO PRINCIPAL:
+"COMPRA CON TOTAL CONFIANZA"
+Fuente {FUENTE} GRUESA, blanco, centrado arriba.
+
+2. FILA DE 3 GARANTÍAS (iconos lineales):
+Iconos limpios y modernos en {COLOR_HEX}, texto blanco debajo.
+— Escudo con check: "SIN EFECTOS SECUNDARIOS"
+— Cronómetro: "RESULTADOS EN POCAS SEMANAS"
+— Hoja/planta: "INGREDIENTES 100% NATURALES"
+
+3. SECCIÓN LOGÍSTICA — "NUESTROS ALIADOS":
+3 tarjetas verticales con bordes redondeados, fondo oscuro, borde {COLOR_HEX}.
+— Tarjeta 1: icono paquete/mano → "PAGO CONTRA ENTREGA"
+— Tarjeta 2: icono camión/avión → "ENVÍO GRATIS" / "A todo el país"
+— Tarjeta 3: icono matraz+check → "PRODUCTO 100% PROBADO" / "Calidad garantizada"
+
+4. PIE DISCRETO: "Tu satisfacción es nuestra prioridad."
+
+Diseño limpio, amplio espacio entre elementos, profesional. Sin dorados.""",
+
+# ─────────────────────────────────────────────────────────────────────────────
+5: """Genera una imagen vertical 9:16 para sección de Preguntas Frecuentes.
+Dark Mode Premium. Paleta {COLOR_HEX}. Fuente {FUENTE}.
+
+PRODUCTO: {INFO_PRODUCTO}
 
 1. FONDO Y TÍTULO:
-Fondo: Un fondo oscuro, gris carbón muy oscuro o negro con iluminación sutil y difusa.
-Título Principal: En la parte superior, centrado, en fuente {FUENTE} GRUESA (Bold), color blanco, tamaño grande: "Lo que dicen quienes ya lo usan".
+Fondo negro/gris carbón sólido.
+Título: "Preguntas frecuentes" — {FUENTE} bold, blanco/crema, grande, centrado.
 
-2. CUADRÍCULA DE TESTIMONIOS (4 TARJETAS):
-Crea una cuadrícula de 2 filas por 2 columnas con cuatro tarjetas de testimonios.
-Cada tarjeta debe tener bordes redondeados y un color de fondo ligeramente más claro que el fondo principal (gris oscuro translúcido), con un borde muy fino del color de acento {COLOR_HEX}.
+2. CUERPO — 4 tarjetas apiladas verticalmente:
+Cada tarjeta: fondo ligeramente más claro que el fondo (gris oscuro),
+bordes redondeados, trazo fino {COLOR_HEX} en borde.
+Formato interno de cada tarjeta:
+Q en color {COLOR_HEX} → pregunta en texto blanco brillante.
+A justo debajo → respuesta breve y tranquilizadora en gris claro.
 
-Contenido de cada tarjeta:
-Foto UGC del Producto: En lugar de foto de perfil, ocupa la parte superior de cada tarjeta con una fotografía estilo UGC (User Generated Content) del producto (imagen adjunta) en una ubicación cotidiana diferente en cada tarjeta: encima de una cama con sábanas arrugadas, sobre un mostrador de baño con objetos personales al fondo, encima de una mesa de cocina con luz natural lateral, sobre una mesa de noche con celular o vaso de agua cerca. Cada foto debe verse tomada con un Android de gama baja: leve sobreexposición, colores ligeramente saturados, ángulo imperfecto, sin composición planeada, totalmente espontánea y auténtica.
-Nombre del Cliente: Debajo de la foto, nombre latinoamericano en blanco bold (ej. "Claudia R.", "Andrés M.", "Verónica L.", "Carlos T.").
-Calificación: Debajo del nombre, cinco estrellas del color de acento {COLOR_HEX}.
-Texto del Testimonio: Un párrafo breve con el texto del testimonio en fuente {FUENTE}, color blanco o gris claro, legible. Genera 4 testimonios distintos relacionados con los beneficios de {INFO_PRODUCTO}.
+Genera las 4 preguntas y respuestas adaptadas específicamente a {INFO_PRODUCTO}:
+1. ¿Cuándo veré resultados?
+2. ¿Es seguro? ¿Tiene contraindicaciones?
+3. ¿Cuál es su beneficio principal?
+4. ¿Por qué es mejor que otras marcas?
 
-3. PIE DE PÁGINA:
-En el borde inferior, centrado, en texto pequeño y discreto: "Experiencias reales. Resultados individuales pueden variar.\"""",
+3. Tipografía sans-serif geométrica {FUENTE}. Diseño limpio y corporativo.""",
 
-5: """Genera una imagen vertical (ratio 9:16) para la sección de Preguntas Frecuentes, manteniendo estrictamente la estética oscura ("Dark Mode Premium") y la paleta de colores de las fases anteriores.
+# ─────────────────────────────────────────────────────────────────────────────
+6: """Genera una imagen vertical 9:16 para sección de testimonios de clientes reales.
+Dark mode. Paleta {COLOR_HEX}. Fuente {FUENTE}.
 
-PRODUCTO DE REFERENCIA: {INFO_PRODUCTO}
+PRODUCTO: {INFO_PRODUCTO}
+
+CONCEPTO CLAVE: Esta sección debe verse COMPLETAMENTE AUTÉNTICA y sin filtros.
+Las fotos del producto NO son de estudio. Son fotos de clientes reales.
 
 1. FONDO Y TÍTULO:
-Fondo: Color oscuro sólido o degradado muy sutil (negro/gris carbón).
-Título Principal: En la parte superior, centrado, grande y legible en fuente {FUENTE} (Bold). Color: Blanco o Crema muy claro. Texto: "Preguntas frecuentes".
+Fondo gris carbón muy oscuro o negro.
+Título: "Lo que dicen nuestros clientes" — {FUENTE} GRUESA, blanco, grande, centrado.
+Subtítulo pequeño: ★★★★★ "Más de 3.500 personas lo comprueban"
 
-2. ESTRUCTURA DE TARJETAS (CUERPO CENTRAL):
-Crea una columna vertical con 4 tarjetas rectangulares apiladas una debajo de la otra.
-Estilo de la Tarjeta: Fondo oscuro (ligeramente más claro que el fondo principal para crear profundidad), bordes redondeados y un trazo/borde muy fino del color de acento {COLOR_HEX}.
+2. CUADRÍCULA DE 6 TARJETAS (3 filas × 2 columnas):
+Cada tarjeta: bordes redondeados, fondo gris oscuro translúcido, borde muy fino {COLOR_HEX}.
 
-3. CONTENIDO DE LAS TARJETAS:
-Dentro de cada tarjeta, coloca una pregunta y respuesta lógica para este tipo de producto según {INFO_PRODUCTO}, siguiendo este formato visual exacto:
-Icono Q (Pregunta): La letra "Q" en color {COLOR_HEX}, seguido de la pregunta en texto blanco brillante.
-Icono A (Respuesta): La letra "A" debajo, seguido de la respuesta breve y tranquilizadora en texto gris claro o blanco suave.
-Las 4 preguntas deben cubrir: Tiempo de resultados, Seguridad/Contraindicaciones, Beneficio principal, Diferenciador vs. otras marcas.
-Genera las preguntas y respuestas basándote en {INFO_PRODUCTO}.
+FOTO UGC (parte superior de cada tarjeta — ocupa ~45% de la tarjeta):
+Foto del producto (imagen adjunta) en 6 situaciones cotidianas DISTINTAS y ALEATORIAS:
+- Tarjeta 1: producto tirado sobre una cama deshecha, sábanas arrugadas, luz de tarde.
+- Tarjeta 2: mano en primera persona sosteniendo el producto frente a una ventana.
+- Tarjeta 3: producto apoyado en el borde de un sofá con cojines desordenados.
+- Tarjeta 4: producto sobre una mesa de madera con taza de café al lado.
+- Tarjeta 5: mano latinoamericana sosteniendo el producto, fondo de cocina borroso.
+- Tarjeta 6: producto sobre una mesa de noche con celular y vaso de agua cerca.
 
-4. ESTÉTICA GENERAL:
-El diseño debe verse limpio, moderno y corporativo. Tipografía Sans-Serif geométrica {FUENTE}.""",
+ESTILO FOTOGRÁFICO OBLIGATORIO para cada foto:
+— Tomada con Android de gama baja. Ruido digital visible. Leve sobreexposición.
+— Colores ligeramente saturados y cálidos. Foco imperfecto.
+— Ángulo casual, no planificado. Composición descuidada a propósito.
+— NADA de fotografía profesional. NADA de fondo blanco. NADA de producto centrado.
+— Se ve como una foto de WhatsApp enviada por un cliente real.
 
-6: """Genera una imagen vertical (ratio 9:16) con una tabla comparativa de alto contraste, manteniendo la estética oscura y la paleta de colores {COLOR_HEX}.
+PARTE INFERIOR DE CADA TARJETA:
+Nombre latinoamericano bold blanco (Claudia R., Andrés M., Verónica L., Carlos T., Diana P., Sebastián G.)
+★★★★★ en {COLOR_HEX}
+Testimonio corto, directo y natural de máximo 2 líneas relacionado con {INFO_PRODUCTO}.
+El testimonio debe sonar como lo diría una persona real, no un copywriter.
 
-PRODUCTO DE REFERENCIA: {INFO_PRODUCTO}
-
-1. ENCABEZADO IMPACTANTE:
-En la parte superior, centrado, en fuente {FUENTE} GRUESA (Bold) y mayúsculas.
-Texto: "LA DIFERENCIA ES CLARA".
-Color: Blanco o el color de acento {COLOR_HEX} (si es claro/luminoso) para que destaque sobre el fondo oscuro.
-
-2. ESTRUCTURA DE COLUMNAS (IZQUIERDA VS DERECHA):
-Columna Izquierda (NUESTRO PRODUCTO — HÉROE):
-Cabecera: Imagen pequeña del frasco (imagen adjunta) + nombre del producto de {INFO_PRODUCTO}.
-Estilo de Texto: Blanco brillante, Negrita.
-Iconos: CHECK (✓) dentro de círculos del color de acento {COLOR_HEX} para cada punto.
-
-Columna Derecha (COMPETENCIA):
-Cabecera: Texto gris: "OTROS SUPLEMENTOS" o "GENÉRICOS".
-Estilo de Texto: Gris apagado, fuente delgada o regular.
-Iconos: "X" en gris muy oscuro sutil. La columna debe verse visualmente inferior comparada con la izquierda.
-
-3. CONTENIDO DE LAS FILAS (5 filas comparativas, separadas por líneas finas grises):
-Fila 1 — Formato/Absorción: Izquierda: "Absorción Superior/Rápida" vs Derecha: "Absorción lenta".
-Fila 2 — Ingredientes: Izquierda: "Ingredientes Premium/Naturales" vs Derecha: "Rellenos sintéticos".
-Fila 3 — Seguridad: Izquierda: "Testeado en Lab" vs Derecha: "Sin verificar".
-Fila 4 — Beneficio Clave: Izquierda: beneficio principal extraído de {INFO_PRODUCTO} vs Derecha: "Efecto mínimo".
-Fila 5 — Resultado: Izquierda: "Resultados Visibles" vs Derecha: "Resultados inconsistentes".
-
-4. ESTÉTICA:
-Fondo negro o gris carbón muy oscuro. La columna de nuestro producto debe parecer iluminada, mientras que la de la competencia debe verse en la sombra.""",
-
-7: """Genera una imagen vertical (ratio 9:16) dividida en dos secciones principales (Visual Superior y Datos Inferior), manteniendo la estética oscura y la paleta de colores {COLOR_HEX}.
-
-PRODUCTO DE REFERENCIA: {INFO_PRODUCTO}
-
-1. ENCABEZADO:
-En el tope superior, centrado, en fuente {FUENTE} GRUESA (Bold) y mayúsculas.
-Texto: "RESULTADOS QUE SE VEN".
-Color: Verde lima brillante o el color de acento {COLOR_HEX}.
-
-2. SECCIÓN VISUAL (MITAD SUPERIOR):
-Crea una composición de pantalla dividida verticalmente por una línea fina blanca.
-Lado Izquierdo: Etiqueta "ANTES" en la parte superior. Muestra una representación visual realista del problema que resuelve {INFO_PRODUCTO}, en tonos desaturados o sepia. Sin producto visible.
-Lado Derecho: Etiqueta "DESPUÉS" en la parte superior. Muestra el resultado ideal con iluminación brillante, colores vivos y saturados. Persona con el beneficio ya logrado.
-Adapta la composición al tipo específico de producto y beneficio descrito en {INFO_PRODUCTO}.
-Overlay: Un círculo sutil flotando en la intersección que diga la característica/ingrediente clave extraído de {INFO_PRODUCTO}.
-
-3. SECCIÓN DE DATOS (MITAD INFERIOR):
-Fondo oscuro sólido.
-Crea una tabla de 4 filas con líneas de separación horizontales muy finas.
-Columna Izquierda (Categoría): Texto en mayúsculas, color de acento {COLOR_HEX}. Categorías derivadas de los beneficios de {INFO_PRODUCTO}.
-Columna Derecha (Beneficio): Texto blanco descriptivo del resultado esperado.
-
-4. ESTILO GENERAL:
-Dark Mode Premium. El contraste entre el Antes (apagado) y el Después (brillante) debe ser la clave visual.""",
-
-8: """Genera una imagen vertical (ratio 9:16) para la sección de garantías y logística, manteniendo estrictamente la estética oscura y la paleta de colores {COLOR_HEX}.
-
-PRODUCTO DE REFERENCIA: {INFO_PRODUCTO}
-
-1. FONDO Y TÍTULO PRINCIPAL:
-Fondo: Color oscuro sólido o degradado sutil, consistente con el resto de la página.
-Título: En la parte superior, centrado, en fuente {FUENTE} GRUESA (Bold). Color blanco. Texto: "COMPRA CON TOTAL CONFIANZA".
-
-2. SECCIÓN SUPERIOR — GARANTÍAS DEL PRODUCTO (Fila de 3 Iconos):
-Crea una fila horizontal con tres módulos de iconos.
-Estilo de Icono: Iconos lineales limpios y modernos en el color de acento {COLOR_HEX}.
-Estilo de Texto: Texto blanco legible debajo de cada icono.
-Módulo 1: Icono de escudo con check. Texto: "SIN EFECTOS SECUNDARIOS".
-Módulo 2: Icono de cronómetro/velocidad. Texto: "RESULTADOS EN POCAS SEMANAS".
-Módulo 3: Icono de hoja/planta. Texto: "INGREDIENTES 100% NATURALES".
-
-3. SECCIÓN INFERIOR — LOGÍSTICA Y SEGURIDAD:
-Subtítulo: Debajo de la fila de iconos, en texto blanco, fuente {FUENTE} GRUESA: "NUESTROS ALIADOS LOGÍSTICOS".
-Estructura: Una fila con tres tarjetas rectangulares verticales con bordes redondeados.
-Estilo de Tarjeta: Fondo oscuro (ligeramente más claro que el fondo principal), con un borde fino del color de acento {COLOR_HEX}.
-
-Tarjeta 1 — Pago: Icono de mano recibiendo paquete/dinero. Título: "PAGO CONTRA ENTREGA".
-Tarjeta 2 — Envío: Icono de avión o camión. Título: "ENVÍO GRATIS". Subtítulo: "A todo el país".
-Tarjeta 3 — Calidad: Icono de matraz de laboratorio con check. Título: "PRODUCTO 100% PROBADO". Subtítulo: "Calidad garantizada".
-
-4. ESTÉTICA GENERAL:
-El diseño debe ser limpio, con amplio espacio entre elementos, transmitiendo seguridad y profesionalismo. Sin dorados ni estilos recargados.""",
+3. PIE: "Experiencias reales. Resultados individuales pueden variar." """,
 
 }
